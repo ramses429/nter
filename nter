@@ -1,0 +1,60 @@
+#!/bin/bash
+if [[ "$#" == 0  ]] 
+ then
+	
+	cat > /tmp/nter
+	cat /tmp/nter | grep  "" -n --color=always  
+	
+
+elif [[ "$#" == 1 && "$1" =~ [0-9]+ ]]
+ then
+	
+	
+	cat /tmp/nter | grep "" -n | grep  -P "^$1:" | sed -E 's/^[0-9]+://g'
+	
+ 
+elif [[ "$#" == 1 && "$1" == "-R" ]]
+ then
+	
+	cat > /tmp/nter 
+	cat /tmp/nter | grep  "" -n --color=always | less -R
+	
+	
+elif [[ "$#" == 1 && "$1" == "-S" ]]
+ then
+	
+	cat /tmp/nter | grep  "" -n --color=always  
+	
+
+elif [[ "$#" == 1 && "$1" == "-SR" ]]
+ then
+	
+	cat /tmp/nter | grep  "" -n --color=always | less -R 
+	
+
+elif [[ "$#" == 1 && ( ( "$1" == "-h" ) || ( "$1" == "-help" ) ) ]]
+ then
+	
+echo -e "Usage: ARGUMENTS | nterm [ OPTION | NUMBER CALL ]
+Use for call arguments of before function return
+Pass arguments across pipe 
+
+Example: > locate folder | nterm 
+         > cd \$(nterm 8)
+	 
+	 >ls | nter
+	 >vim \$(nterm 12)
+	         
+Pattern selection
+
+   Need data (pipe)  (save in a file)
+   No arguments: list of arguments  for use  
+  -R see list of arguments for use whit a function less 
+
+   No need data (Read file) 
+  -S see the arguments for use 
+  -SR see the arguments for use with less
+  -h/--help show the help
+  "
+  
+fi
