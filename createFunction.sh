@@ -5,14 +5,14 @@ RELATIVE_PATH=$(pwd|grep -E '(^\/.*src)' -o)
 FUNCTION_NAME=$(pwd|grep -E '(\w+$)' -o)
 
 echo "Do you want create function template in ${FOLDER_PATH}"
-echo "Do you want create function template ${FUNCTION_NAME} (WRITE: CREATE) "
+echo "(WRITE: ${FUNCTION_NAME}) "
 read CREATE
 
-if [[ $CREATE != "CREATE" ]]; then
+if [[ $CREATE != ${FUNCTION_NAME} ]]; then
   echo "No create"
   exit 1
 else
-  echo "Start create"
+  echo "Start create ${FUNCTION_NAME}"
 fi
 
 cp "${RELATIVE_PATH}/utils/createFunctions/index.js" .
@@ -34,6 +34,7 @@ TEST_PATH="${RELATIVE_PATH}/__tests__/${UTIL_PATH}"
 mkdir -p ${TEST_PATH}
 
 sed -i '' "s/{SCHEMA_VALIDATION_PATH}/${UTIL_PATH_PROSED}\/schemaValidation/g" index.js
+sed -i '' "s/{NAME_FUNCTION}/${FUNCTION_NAME}/g" index.js
 
 sed -i '' "s/{FUNCTION_INDEX}/${FUNCTION_NAME}/g" index.test.js
 sed -i '' "s/{FUNCTION_INDEX_PATH}/${UTIL_PATH_PROSED}/g" index.test.js
